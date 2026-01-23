@@ -1,0 +1,17 @@
+[22/1/2026, 11:12:49 am] CONTACT (Bottom)
+{
+  "name": "Bluestone School",
+  "email": "jayasrimurugesan137@gmail.com",
+  "phone": "07708703137",
+  "service": "foundation",
+  "message": "test"
+}
+----------------------------
+[22/1/2026, 11:15:37 am] ENQUIRY (Modal)
+{
+  "name": "Jai",
+  "phone": "7708703137",
+  "qualification": "Final Year Student",
+  "city": "test"
+}
+----------------------------
