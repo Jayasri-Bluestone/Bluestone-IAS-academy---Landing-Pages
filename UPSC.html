@@ -162,6 +162,21 @@
         align-items: center;
       }
 
+      .offer-modes {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+.offer-modes span {
+  background:#b38728 ;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
       /* Location Styles */
 
       .location-box {
@@ -333,6 +348,129 @@
           font-size: 2rem;
         }
       }
+
+     /* Toast Container */
+#toast-container {
+    position: fixed;
+    top: 20px; /* Changed from bottom to top */
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual Toast Style */
+.toast {
+    min-width: 280px;
+    background: #ffffff;
+    color: #333;
+    padding: 16px 20px;
+    border-radius: 4px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content:间;
+    border-left: 5px solid #333; /* Accent border */
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Status Colors */
+.toast.success { border-left-color: #22c55e; }
+.toast.error { border-left-color: #ef4444; }
+
+/* Animations */
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+}
+
+/* Professional UI Enhancements */
+/* ===== FACULTY SLIDER FIXED UI ===== */
+
+#facultySliderWindow {
+  overflow: hidden;
+  width: 100%;
+}
+
+#facultyTrack {
+  display: flex;
+  gap: 32px;
+  transition: transform 0.6s ease;
+}
+
+/* Card sizing: exactly 3 cards on desktop */
+.faculty-card {
+  flex: 0 0 calc((100% - 64px) / 3); /* 3 cards + 2 gaps */
+  background: white;
+  padding: 36px 28px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.faculty-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(12, 35, 64, 0.12);
+  border-color: #1a73e8;
+}
+
+/* Image */
+.faculty-img-container {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 18px;
+  position: relative;
+}
+
+/* Description FIX: wrapped & readable */
+.faculty-card p.description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.65;
+  margin-top: 12px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .faculty-card {
+    flex: 0 0 calc((100% - 32px) / 2); /* 2 cards */
+  }
+}
+
+@media (max-width: 600px) {
+  .faculty-card {
+    flex: 0 0 100%; /* 1 card */
+  }
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  width: 26px;
+  border-radius: 14px;
+  background: #1a73e8;
+}
+
+  
     </style>
   </head>
   <body>
@@ -411,11 +549,16 @@
             </p>
           </div>
         </div>
-        <!-- <div style="text-align: center">
-          <a href="#contact" class="btn btn-primary" style="width: 100%"
-            >Claim 25% Offer Now</a
-          >
-        </div> -->
+        
+        <div class="offer-modes">
+           <p style="margin-bottom: 20px;">
+        Attend classes <strong>in classroom or live online</strong> with the
+        same expert faculty, complete UPSC coverage, and full recorded access.
+      </p>
+        <span>🏫 Offline Classroom (Race Course)</span>
+        <span>💻 Live Online Interactive</span>
+       
+      </div>
       </div>
     </div>
 
@@ -663,9 +806,9 @@
           "
           >&times;</span
         >
-        <h3 style="margin-bottom: 10px">Access Full Syllabus</h3>
-        <p style="margin-bottom: 25px; font-size: 0.9rem; color: #64748b">
-          Please provide your details to unlock the 2026 Syllabus PDF.
+        <h3>Quick Registration</h3>
+        <p style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b">
+          Get 50% Early Bird Discount Details.
         </p>
 
         <form id="modalForm">
@@ -770,7 +913,7 @@
           </div>
 
           <button type="submit" class="btn btn-primary" style="width: 100%">
-            Submit & Download
+            Submit
           </button>
         </form>
       </div>
@@ -893,6 +1036,129 @@
         </div>
       </div>
     </section>
+
+<section id="faculty" style="padding: 80px 0; background: #fdfdfd; overflow: hidden;">
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center; padding: 0 20px;">
+        <h2 style="color: #0c2340; font-size: 32px; margin-bottom: 40px;">Our Expert Faculty</h2>
+        
+        <div id="facultySliderWindow" style="overflow: hidden; width: 100%;">
+            <div id="facultyTrack" style="display: flex; transition: transform 0.6s ease; gap: 25px;">
+                <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="giri.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">MR. GIRIDHARI. N</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">Indian Polity, Economy, & Current Affairs</p>
+                        <p class="description">Guiding aspirants through core UPSC subjects with high-clarity frameworks and strategic insights.</p>
+                    </div>
+                </div>
+
+                <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="MOHAMMEDSULTANAMBALAM.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">MR. M. SULTAN AMBALAM J</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">CSAT – Aptitude & Reasoning</p>
+                        <p class="description">Specializes in developing speed and accuracy for CSAT, ensuring students master logical reasoning and quantitative math.</p>
+                    </div>
+                </div>
+
+                <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="sastikumar.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">MR. SASTIKUMAR</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">Geography & Ethics</p>
+                        <p class="description">Provides a structured learning experience across History, Ethics, and International Relations for a holistic UPSC approach.</p>
+                    </div>
+                </div>
+
+                     <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="sudeer.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">DR.B.SUDHEER</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">Indian Economy expert · Conceptual & analytical teaching.</p>
+                        <p class="description">Expertise in the field of Indian Economy, developed through years of focused study, teaching, and continuous engagement with current economic developments.</p>
+                    </div>
+                </div>
+
+                <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="parthasarathi.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">MR. PARTHASARATHI</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">Geography & EVS</p>
+                        <p class="description"> in World History and Disaster Management, bridging the gap between Prelims and Mains requirements.</p>
+                    </div>
+                </div>
+
+                <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
+                    <div>
+                        <div class="faculty-img-container">
+                            <img src="gugan.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); position: relative; z-index: 1;"/>
+                        </div>
+                        <h3 style="color: #0c2340; font-size: 20px; margin-bottom: 8px;">MR. GUGHAN VELIYAPPA</h3>
+                        <p style="color: #1a73e8; font-weight: 600; font-size: 14px; margin-bottom: 15px; min-height: 40px;">History Specialist</p>
+                        <p class="description">Strives to make History both meaningful and accessible, ensuring every aspirant masters chronological context.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+      <div id="sliderDots" style="margin-top: 30px; display: flex; justify-content: center; gap: 10px;">
+            </div>
+    </div>
+</section>
+
+<style>
+    /* Responsive adjustment: 1 card on mobile, 3 on desktop */
+    @media (max-width: 768px) {
+        .faculty-card {
+            min-width: 100% !important;
+        }
+    }
+</style>
+
+<section id="testimonials" style="padding: 60px 20px; background: #0c2340; color: white;">
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+        <h2 style="margin-bottom: 40px; color:#b38728 ; font-size: 40px;">Student Success Stories</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; text-align: left;">
+                <p style="font-style: italic; line-height: 1.6; margin-bottom: 20px;">
+                    "Bluestone IAS Academy has provided me with an excellent learning environment for my UPSC preparation. The faculty are highly knowledgeable and explain every concept in a very simple and clear manner. The study materials, regular tests, and personal guidance have helped me stay consistent and confident in my preparation. The overall atmosphere is motivating, and I truly feel that this academy is helping me move closer to my UPSC goals.”
+                </p>
+                <div style="display: flex; align-items: center;">
+                    <div><img src="dhanusiya.webp" style="width: 40px; height: 40px; background: #1a73e8; border-radius: 50%; margin-right: 15px;"/></div>
+                    <div>
+                        <h4 style="margin: 0; color: #b38728;">DHANUSIYA M</h4>
+                        <small style="color: #aaa;">Student</small>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; text-align: left;">
+                <p style="font-style: italic; line-height: 1.6; margin-bottom: 20px;">
+                    "I am currently preparing for SSC at Bluestone IAS Academy, and I am very satisfied with the learning experience. The faculty is knowledgeable, supportive, and explains every concept clearly. The study materials and regular mock tests are truly helpful for improving accuracy and confidence. The disciplined learning environment keeps me focused and motivated. I feel more confident in my preparation because of the academy’s guidance. I am grateful to be a part of Bluestone IAS Academy. Thank you"
+                </p>
+                <div style="display: flex; align-items: center;">
+                    <div><img src="jeevitha.webp" style="width: 40px; height: 40px; background: #1a73e8; border-radius: 50%; margin-right: 15px;"/></div>
+                    <div>
+                        <h4 style="margin: 0; color: #b38728;">JEEVITHA</h4>
+                        <small style="color: #aaa;">Student</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section id="contact">
       <div class="container">
@@ -1073,7 +1339,7 @@
                 margin-bottom: 15px;
               "
             >
-              BLUESTONE <span style="color: var(--ias-gold)">IAS</span>
+              <img src="Logo.png" style="width: 70%; height: 70%;">
             </div>
             <p style="opacity: 0.7; font-size: 0.9rem">
               Empowering future bureaucrats with strategic guidance and
@@ -1092,10 +1358,10 @@
           <div class="footer-col">
             <h4>Support</h4>
             <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Student Login</a></li>
-              <li><a href="#">Help Center</a></li>
+              <li><a href="https://bluestoneiasacademy.com/" target="_blank">Privacy Policy</a></li>
+              <li><a href="https://bluestoneiasacademy.com/" target="_blank">Terms of Service</a></li>
+              <li><a href="https://bluestoneiasacademy.com/" target="_blank">Student Login</a></li>
+              <li><a href="https://bluestoneiasacademy.com/" target="_blank">Help Center</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -1279,27 +1545,45 @@ document.addEventListener("DOMContentLoaded", function () {
     const contactForm = document.getElementById("contactForm");
     const pendingFileInput = document.getElementById("pendingFile");
 
-    // This variable tracks if the user is downloading or just filling a pop-up
+    // --- TOAST HELPER FUNCTION ---
+    function showToast(message, type = "success") {
+        // Create container if it doesn't exist
+        let container = document.getElementById("toast-container");
+        if (!container) {
+            container = document.createElement("div");
+            container.id = "toast-container";
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+        container.appendChild(toast);
+
+        // Remove toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.add("fade-out");
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+
     let isDownloadAction = false;
 
-    // --- 1. SCROLL LOGIC (Auto-pop up after 2 sections) ---
+    // --- 1. SCROLL LOGIC ---
     let autoPopupTriggered = false;
     window.addEventListener("scroll", () => {
-        if (!autoPopupTriggered) {
-            // Check if user has scrolled past 1200px (roughly 2 sections)
-            if (window.scrollY > 500) { 
-                isDownloadAction = false; // It's just a lead form, no download
-                modal.style.display = "flex";
-                autoPopupTriggered = true; 
-            }
+        if (!autoPopupTriggered && window.scrollY > 500) {
+            isDownloadAction = false; 
+            modal.style.display = "flex";
+            autoPopupTriggered = true; 
         }
     });
 
-    // --- 2. CLICK LOGIC (Manual Download) ---
+    // --- 2. CLICK LOGIC ---
     downloadTriggers.forEach((btn) => {
         btn.addEventListener("click", function (e) {
             e.preventDefault();
-            isDownloadAction = true; // YES, download after submission
+            isDownloadAction = true; 
             pendingFileInput.value = this.getAttribute("data-file");
             modal.style.display = "flex";
         });
@@ -1316,7 +1600,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        // Handle Checkboxes
         const selectedCourses = [];
         form.querySelectorAll('input[name="courses"]:checked').forEach(cb => selectedCourses.push(cb.value));
         data.service = selectedCourses.join(", ");
@@ -1325,26 +1608,27 @@ document.addEventListener("DOMContentLoaded", function () {
             submitBtn.disabled = true;
             submitBtn.innerText = "Processing...";
 
-            const response = await fetch(`http://localhost:5001/${endpoint}`, {
+            const response = await fetch(`https://bluestoneinternationalpreschool.com/upsc_api/${endpoint}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
 
             if (response.ok) {
-                // CONDITIONAL DOWNLOAD
                 if (form.id === "modalForm" && isDownloadAction === true) {
                     triggerDownload(pendingFileInput.value);
-                    alert("Success! Your download is starting.");
+                    showToast("Success! Your download is starting.");
                 } else {
-                    alert("Thank you! Our team will contact you shortly.");
+                    showToast("Thank you! Our team will contact you shortly.");
                 }
 
                 form.reset();
                 modal.style.display = "none";
+            } else {
+                showToast("Server error. Please try again.", "error");
             }
         } catch (error) {
-            alert("Connection error. Is the backend running?");
+            showToast("Connection error. Is the backend running?", "error");
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerText = isDownloadAction ? "Download Now" : "Submit Details";
@@ -1364,6 +1648,63 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modalForm) modalForm.onsubmit = (e) => handleFormSubmit(e, "submit-enquiry");
     if (contactForm) contactForm.onsubmit = (e) => handleFormSubmit(e, "submit-contact");
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("facultyTrack");
+  const cards = document.querySelectorAll(".faculty-card");
+  const dotsContainer = document.getElementById("sliderDots");
+
+  let index = 0;
+
+  function cardsPerView() {
+    if (window.innerWidth > 992) return 3;
+    if (window.innerWidth > 600) return 2;
+    return 1;
+  }
+
+  function createDots() {
+    dotsContainer.innerHTML = "";
+    const totalPages = Math.ceil(cards.length / cardsPerView());
+
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => moveTo(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function moveTo(i) {
+    const cardWidth = cards[0].offsetWidth + 32; // gap
+    index = i;
+    track.style.transform = `translateX(-${index * cardWidth * cardsPerView()}px)`;
+
+    document.querySelectorAll(".dot").forEach((d, idx) => {
+      d.classList.toggle("active", idx === index);
+    });
+  }
+
+  function autoSlide() {
+    const totalPages = Math.ceil(cards.length / cardsPerView());
+    index = (index + 1) % totalPages;
+    moveTo(index);
+  }
+
+  createDots();
+  let sliderInterval = setInterval(autoSlide, 4000);
+
+  window.addEventListener("resize", () => {
+    index = 0;
+    track.style.transform = "translateX(0)";
+    clearInterval(sliderInterval);
+    createDots();
+    sliderInterval = setInterval(autoSlide, 4000);
+  });
+});
+
+
 </script>
   </body>
 </html>
