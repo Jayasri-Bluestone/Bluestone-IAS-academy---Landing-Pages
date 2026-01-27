@@ -170,10 +170,11 @@
 }
 .offer-modes span {
   background:#b38728 ;
-  padding: 10px 16px;
-  border-radius: 30px;
+  padding:4px 6px;
+  border-radius: 50px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: white;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
@@ -468,6 +469,57 @@
   width: 26px;
   border-radius: 14px;
   background: #1a73e8;
+}
+
+.faculty-carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#facultySliderWindow {
+    overflow: hidden;
+}
+
+/* arrows */
+.faculty-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: #777878;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+}
+
+/* TRUE outside placement */
+.faculty-arrow.left {
+    left: -70px;
+}
+
+.faculty-arrow.right {
+    right: -70px;
+}
+
+.faculty-arrow:hover {
+    background: #1a73e8;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* hide on mobile */
+@media (max-width: 768px) {
+    .faculty-arrow {
+        display: none;
+    }
 }
 
   
@@ -1039,10 +1091,16 @@
 
 <section id="faculty" style="padding: 80px 0; background: #fdfdfd; overflow: hidden;">
     <div style="max-width: 1200px; margin: 0 auto; text-align: center; padding: 0 20px;">
+      
         <h2 style="color: #0c2340; font-size: 32px; margin-bottom: 40px;">Our Expert Faculty</h2>
         
-        <div id="facultySliderWindow" style="overflow: hidden; width: 100%;">
-            <div id="facultyTrack" style="display: flex; transition: transform 0.6s ease; gap: 25px;">
+     <div class="faculty-carousel">
+
+    <button id="prevFaculty" class="faculty-arrow left">&#10094;</button>
+
+    <div id="facultySliderWindow">
+        <div id="facultyTrack">
+      
                 <div class="faculty-card" style="min-width: calc(33.333% - 17px); background: white; padding: 40px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex-shrink: 0;">
                     <div>
                         <div class="faculty-img-container">
@@ -1111,7 +1169,7 @@
 
             </div>
         </div>
-
+ <button id="nextFaculty" class="faculty-arrow right">&#10095;</button>
       <div id="sliderDots" style="margin-top: 30px; display: flex; justify-content: center; gap: 10px;">
             </div>
     </div>
@@ -1149,7 +1207,7 @@
                     "I am currently preparing for SSC at Bluestone IAS Academy, and I am very satisfied with the learning experience. The faculty is knowledgeable, supportive, and explains every concept clearly. The study materials and regular mock tests are truly helpful for improving accuracy and confidence. The disciplined learning environment keeps me focused and motivated. I feel more confident in my preparation because of the academy’s guidance. I am grateful to be a part of Bluestone IAS Academy. Thank you"
                 </p>
                 <div style="display: flex; align-items: center;">
-                    <div><img src="jeevitha.webp" style="width: 40px; height: 40px; background: #1a73e8; border-radius: 50%; margin-right: 15px;"/></div>
+                    <div><img src="jeevitha.jpg" style="width: 40px; height: 40px; background: #1a73e8; border-radius: 50%; margin-right: 15px;"/></div>
                     <div>
                         <h4 style="margin: 0; color: #b38728;">JEEVITHA</h4>
                         <small style="color: #aaa;">Student</small>
@@ -1374,14 +1432,14 @@
                 margin-top: 10px;
               "
             >
-              <a href="https://wa.me/917092612666"
+              <a href="https://wa.me/917092612666" target="_blank"
                 ><i class="fab fa-whatsapp"></i
               ></a>
               <a
-                href="https://www.instagram.com/bluestone_iasacademy?igsh=MWRwMHAwaGNlazlkNQ=="
+                href="https://www.instagram.com/bluestone_iasacademy?igsh=MWRwMHAwaGNlazlkNQ==" target="_blank"
                 ><i class="fab fa-instagram"></i
               ></a>
-              <a href="https://www.youtube.com/@BluestoneIASAcademy"
+              <a href="https://www.youtube.com/@BluestoneIASAcademy" target="_blank"
                 ><i class="fab fa-youtube"></i
               ></a>
             </div>
@@ -1515,7 +1573,7 @@
     </div>
 
     <a
-      href="https://wa.me/917092612666"
+      href="https://wa.me/917092612666" target="_blank"
       style="
         position: fixed;
         bottom: 30px;
@@ -1693,7 +1751,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   createDots();
-  let sliderInterval = setInterval(autoSlide, 4000);
+  let sliderInterval = setInterval(autoSlide, 5000);
 
   window.addEventListener("resize", () => {
     index = 0;
@@ -1704,7 +1762,53 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+   
+    const track = document.getElementById("facultyTrack");
+    const cards = document.querySelectorAll(".faculty-card");
+    const prevBtn = document.getElementById("prevFaculty");
+    const nextBtn = document.getElementById("nextFaculty");
 
+    let index = 0;
+
+    function getCardsPerView() {
+        return window.innerWidth <= 768 ? 1 : 3;
+    }
+
+    function updateSlider() {
+        const cardWidth = cards[0].offsetWidth + 25;
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+
+        const maxIndex = cards.length - getCardsPerView();
+        prevBtn.style.opacity = index === 0 ? "0.3" : "1";
+        nextBtn.style.opacity = index === maxIndex ? "0.3" : "1";
+    }
+
+    nextBtn.addEventListener("click", () => {
+        const maxIndex = cards.length - getCardsPerView();
+        if (index < maxIndex) {
+            index++;
+            updateSlider();
+        }
+    });
+
+    prevBtn.addEventListener("click", () => {
+        if (index > 0) {
+            index--;
+            updateSlider();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        index = 0;
+        updateSlider();
+    });
+
+    updateSlider();
+
+      document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
 </script>
+
   </body>
 </html>
