@@ -19,8 +19,8 @@ const pool = mysql.createPool({
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'bluestonesoftwaredeveloper@gmail.com',
-        pass: 'phkf paga sdhm bfmq' // Your App Password
+        user: 'bluestonecbeias@gmail.com',
+        pass: 'qgkk pzjc fpoe rijy' // Your App Password
     },
     tls: {
         rejectUnauthorized: false // Helps with local development certificate issues
@@ -80,7 +80,7 @@ const server = http.createServer((req, res) => {
                     console.log(`🚀 Success: ${formType} saved (ID: ${results.insertId})`);
 
                     // --- EMAIL LOGIC ---
-                    const adminEmail = 'bluestonesoftwaredeveloper@gmail.com'; // Change to your official receiver
+                    const adminEmail = 'bluestonecbeias@gmail.com'; // Change to your official receiver
                     const systemSender = 'bluestonesoftwaredeveloper@gmail.com';
 
                     // 1. Notification to Admin
